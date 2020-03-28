@@ -18,6 +18,22 @@ public class GameActivity extends AppCompatActivity {
     private int operatorUpperBound = 2; // Here only 2 operators are used "+" and "-"
     private int numberOfOperations = 1; //Number of operations to be performed in every query
 
+    // Function to calculate correct answer of randomly generated query
+    private int calculateCorrectAnswer(ArrayList<Integer> operands, ArrayList<Character> operations){
+        int answer = operands.get( 0 );
+
+        for(int i = 0; i < operations.size(); i++){
+            if(operations.get(i) == '-') answer -= operands.get(i + 1);
+            else if(operations.get(i) == '+') answer += operands.get(i + 1);
+        }
+
+        return answer;
+    }
+
+    private void updateChoices(int correctAnswer){
+        Random random = new Random();
+    }
+
     private void updateQuery(){
         Random random = new Random();
 
@@ -45,10 +61,13 @@ public class GameActivity extends AppCompatActivity {
 
         //Adding last operand to query string
         queryText += String.valueOf( operands.get( operands.size() - 1 ) ) ;
-
         query.setText(queryText); // Display query on screen
 
-        Log.i("LOGCAT", "str = " + queryText);
+        int correctAnswer = calculateCorrectAnswer(operands, operations);
+
+        updateChoices(correctAnswer);
+
+        Log.i("LOGCAT", "Correct = " + correctAnswer);
     }
 
     @Override
