@@ -34,47 +34,51 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/choice1Button"
+            android:id="@+id/choice0Button"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             app:layout_column="0"
             app:layout_row="0"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1"
-            android:tag="1"
+            android:onClick="checkAnswer"
+            android:tag="0"
             android:text="Choice1"/>
+
+        <Button
+            android:id="@+id/choice1Button"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            app:layout_column="1"
+            app:layout_row="0"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1"
+            android:onClick="checkAnswer"
+            android:tag="1"
+            android:text="Choice2" />
 
         <Button
             android:id="@+id/choice2Button"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            app:layout_column="1"
-            app:layout_row="0"
+            app:layout_column="0"
+            app:layout_row="1"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1"
+            android:onClick="checkAnswer"
             android:tag="2"
-            android:text="Choice2" />
+            android:text="Choice3" />
 
         <Button
             android:id="@+id/choice3Button"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            app:layout_column="0"
-            app:layout_row="1"
-            app:layout_columnWeight="1"
-            app:layout_rowWeight="1"
-            android:tag="3"
-            android:text="Choice3" />
-
-        <Button
-            android:id="@+id/choice4Button"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
             app:layout_column="1"
             app:layout_row="1"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1"
-            android:tag="1"
+            android:onClick="checkAnswer"
+            android:tag="3"
             android:text="Choice4" />
     </androidx.gridlayout.widget.GridLayout>
 
