@@ -10,7 +10,7 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
     //Declaring Views
-    Button startGameButton;
+    private Button startGameButton;
 
     //Function to start Game called on tapping start button
     public void startGame(View view){
