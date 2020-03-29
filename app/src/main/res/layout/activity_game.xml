@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:text="60s"
+        android:text="Time Left : 60s"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,7 +43,8 @@
             app:layout_rowWeight="1"
             android:onClick="answerSelected"
             android:tag="0"
-            android:text="Choice1"/>
+            android:text="1"
+            android:textSize="40sp"/>
 
         <Button
             android:id="@+id/choice1Button"
@@ -55,7 +56,8 @@
             app:layout_rowWeight="1"
             android:onClick="answerSelected"
             android:tag="1"
-            android:text="Choice2" />
+            android:text="2"
+            android:textSize="40sp"/>
 
         <Button
             android:id="@+id/choice2Button"
@@ -67,7 +69,8 @@
             app:layout_rowWeight="1"
             android:onClick="answerSelected"
             android:tag="2"
-            android:text="Choice3" />
+            android:text="3"
+            android:textSize="40sp"/>
 
         <Button
             android:id="@+id/choice3Button"
@@ -79,7 +82,8 @@
             app:layout_rowWeight="1"
             android:onClick="answerSelected"
             android:tag="3"
-            android:text="Choice4" />
+            android:text="4"
+            android:textSize="40sp"/>
     </androidx.gridlayout.widget.GridLayout>
 
     <TextView
@@ -88,7 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:text="Score : 0 / 0"
+        android:text="Score : Nil"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -118,6 +122,9 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:text="END GAME"
+        android:onClick="gamePause"
+        android:alpha="0.4"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

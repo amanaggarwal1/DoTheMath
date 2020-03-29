@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.gridlayout.widget.GridLayout;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,14 +16,18 @@ import java.util.Random;
 public class GameActivity extends AppCompatActivity {
 
     //Declaring Views
-    private TextView queryTV, scoreTV;
+    private TextView queryTV, scoreTV, timerTV;
     private GridLayout choicesGrid;
     private Button[] choiceGridButton;
+    private Button pauseGame;
 
     private int operandUpperBound = 50; //Upper bound of numbers to be added.
     private int operatorUpperBound = 2; // Here only 2 operators are used "+" and "-".
     private int numberOfOperations = 1; //Number of operations to be performed in every query.
     private int choiceDeviation = 20; // Maximum deviation from correct answer.
+    private int totalGameTime = 30; //Total time for 1 round of game
+    private int bufferTime = 400; // Buffer time to reduce lag
+
     private int locationOfCorrectAnswer; // Integer to store location of correct answer which will be updated with every query
     private int score = 0; // Number of queries answered correctly by user.
     private int numberOfQueries = 0; // Number of queries encountered by user.
@@ -31,6 +36,7 @@ public class GameActivity extends AppCompatActivity {
     // Function to check if the answer given by user matches the generated answer
     private void verifyAnswer(int chosen, int correct){
         if(chosen == correct) score++;
+        numberOfQueries++;
     }
 
     // Function to calculate correct answer of randomly generated query
@@ -83,7 +89,6 @@ public class GameActivity extends AppCompatActivity {
     private void updateQuery(){
         Random random = new Random();
 
-        numberOfQueries++;
         String query = ""; // An empty string to store query
 
         ArrayList<Integer> operands = new ArrayList<>(); // Array to store operands
@@ -124,6 +129,33 @@ public class GameActivity extends AppCompatActivity {
         updateQuery();
     }
 
+    public void gamePause(View view){
+        score = 0;
+        numberOfQueries = 0;
+        startGameCounter();
+        pauseGame.setAlpha(0.4f);
+        pauseGame.setEnabled(false);
+        scoreTV.setText("Score : Nil");
+        updateQuery();
+        startGameCounter();
+    }
+
+    public void startGameCounter(){
+        new CountDownTimer(totalGameTime * 1000 + bufferTime, 1000){
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timerTV.setText("Time Left : " + (millisUntilFinished)/1000);
+            }
+
+            @Override
+            public void onFinish() {
+                pauseGame.setAlpha(1);
+                pauseGame.setEnabled(true);
+            }
+        }.start();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,7 +164,9 @@ public class GameActivity extends AppCompatActivity {
         //Linking Views
         queryTV = findViewById(R.id.queryTV);
         scoreTV = findViewById(R.id.scoreTV);
+        timerTV = findViewById(R.id.TimeLeftTV);
         choicesGrid = findViewById(R.id.choicesGridLayout);
+        pauseGame = findViewById(R.id.endGameButton);
 
         choiceGridButton = new Button[choicesGrid.getRowCount() * choicesGrid.getColumnCount()];
 
@@ -141,8 +175,6 @@ public class GameActivity extends AppCompatActivity {
         choiceGridButton[2] = findViewById(R.id.choice2Button);
         choiceGridButton[3] = findViewById(R.id.choice3Button);
 
-        updateQuery();
-
-        scoreTV.setText("Score : Nil");
+        gamePause(queryTV);
     }
 }
