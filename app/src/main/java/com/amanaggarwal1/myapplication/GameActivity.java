@@ -19,30 +19,35 @@ public class GameActivity extends AppCompatActivity {
     private GridLayout choicesGrid;
     private Button choice0Button, choice1Button, choice2Button, choice3Button;
 
-    private int operandUpperBound = 50; //Upper bound of numbers to be added
-    private int operatorUpperBound = 2; // Here only 2 operators are used "+" and "-"
-    private int numberOfOperations = 1; //Number of operations to be performed in every query
-    private int locationOfCorrectAnswer;
-    private int score = 0;
-    private int numberOfQueries = 0;
+    private int operandUpperBound = 50; //Upper bound of numbers to be added.
+    private int operatorUpperBound = 2; // Here only 2 operators are used "+" and "-".
+    private int numberOfOperations = 1; //Number of operations to be performed in every query.
+    private int choiceDeviation = 20; // Maximum deviation from correct answer.
+    private int locationOfCorrectAnswer; // Integer to store location of correct answer which will be updated with every query
+    private int score = 0; // Number of queries answered correctly by user.
+    private int numberOfQueries = 0; // Number of queries encountered by user.
 
 
+    // Function to check if the answer given by user matches the generated answer
     private void verifyAnswer(int chosen, int correct){
         if(chosen == correct) score++;
     }
 
     // Function to calculate correct answer of randomly generated query
     private int calculateCorrectAnswer(ArrayList<Integer> operands, ArrayList<Character> operations){
-        int answer = operands.get( 0 );
 
+        int answer = operands.get( 0 ); // Initialising the answer with first value in operands array
+
+        //Loop through operations and operands array to find the answer
         for(int i = 0; i < operations.size(); i++){
             if(operations.get(i) == '-') answer -= operands.get(i + 1);
             else if(operations.get(i) == '+') answer += operands.get(i + 1);
         }
 
-        return answer;
+        return answer; // Returns the answer back to updateQuery function
     }
 
+    // Function to set the options to buttons on screen
     private void updateChoicesViews(ArrayList<Integer> choices){
         choice0Button.setText(String.valueOf(choices.get(0)));
         choice1Button.setText(String.valueOf(choices.get(1)));
@@ -50,10 +55,14 @@ public class GameActivity extends AppCompatActivity {
         choice3Button.setText(String.valueOf(choices.get(3)));
     }
 
+    // Function to generate choices for a given query
     private void updateChoices(ArrayList<Integer> choices, int correctAnswer){
         Random random = new Random();
 
+        // Get the number of buttons on screen (here there are 4 buttons)
         int numberOfChoices = choicesGrid.getRowCount() * choicesGrid.getColumnCount();
+
+        // Randomly choose the position of correct answer button among various other buttons
         locationOfCorrectAnswer = random.nextInt(numberOfChoices);
 
         for (int i = 0; i < numberOfChoices; i++)
@@ -61,19 +70,15 @@ public class GameActivity extends AppCompatActivity {
             else{
                 int wrongAnswer;
 
-                if(correctAnswer >= 0)
-                    wrongAnswer = random.nextInt(operatorUpperBound * (numberOfOperations + 1) + 1);
-                else
-                    wrongAnswer = -1 * random.nextInt(operatorUpperBound * (numberOfOperations + 1) + 1);
+                    wrongAnswer = random.nextInt((choiceDeviation * 2) + 1) + correctAnswer - choiceDeviation;
 
                 if(wrongAnswer == correctAnswer)
-                    if(correctAnswer >= 0)
-                        wrongAnswer = random.nextInt(operatorUpperBound * (numberOfOperations + 1) + 1);
-                    else
-                        wrongAnswer = -1 * random.nextInt(operatorUpperBound * (numberOfOperations + 1) + 1);
+                    wrongAnswer = random.nextInt((choiceDeviation * 2) + 1) + correctAnswer - choiceDeviation;
 
                 choices.add(wrongAnswer);
             }
+
+        updateChoicesViews(choices);  // Call function to display randomly generated choices on screen
     }
 
     private void updateQuery(){
@@ -107,12 +112,13 @@ public class GameActivity extends AppCompatActivity {
         queryText += String.valueOf( operands.get( operands.size() - 1 ) ) ;
         query.setText(queryText); // Display query on screen
 
+        // Call the function to calculate correct answer
         int correctAnswer = calculateCorrectAnswer(operands, operations);
+        // Call function to generate and display the choices randomly on screen
         updateChoices(choices, correctAnswer);
-        updateChoicesViews(choices);
     }
 
-    public void checkAnswer(View view){
+    public void answerSelected(View view){
 
         verifyAnswer(locationOfCorrectAnswer ,Integer.parseInt(view.getTag().toString()));
         scoreText.setText("Score : " + score + " / " + numberOfQueries);
