@@ -1,11 +1,13 @@
-package com.amanaggarwal1.myapplication;
+package com.amanaggarwal1.dothemath;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.gridlayout.widget.GridLayout;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ import java.util.Random;
 public class GameActivity extends AppCompatActivity {
 
     //Declaring Views
+    private ConstraintLayout gameLayout;
     private TextView queryTV, scoreTV, timerTV;
     private GridLayout choicesGrid;
     private Button[] choiceGridButton;
@@ -35,8 +38,34 @@ public class GameActivity extends AppCompatActivity {
 
     // Function to check if the answer given by user matches the generated answer
     private void verifyAnswer(int chosen, int correct){
-        if(chosen == correct) score++;
-        numberOfQueries++;
+        numberOfQueries++; //Increment number of queries
+
+        if(chosen == correct){
+            score++; ///Increment score
+
+            // Set background color to green
+            gameLayout.setBackgroundColor(Color.GREEN);
+
+            //Set background color back to white after 100 milliseconds
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    gameLayout.setBackgroundColor(Color.WHITE);
+                }
+            },100);
+
+        }else{
+            // Set background color to red
+            gameLayout.setBackgroundColor(Color.RED);
+
+            //Set background color back to white after 100 milliseconds
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    gameLayout.setBackgroundColor(Color.WHITE);
+                }
+            },100);
+        }
     }
 
     // Function to calculate correct answer of randomly generated query
@@ -162,6 +191,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         //Linking Views
+        gameLayout = findViewById(R.id.countDownGameModeConstraintLayout);
         queryTV = findViewById(R.id.queryTV);
         scoreTV = findViewById(R.id.scoreTV);
         timerTV = findViewById(R.id.TimeLeftTV);

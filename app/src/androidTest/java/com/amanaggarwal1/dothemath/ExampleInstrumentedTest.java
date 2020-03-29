@@ -1,4 +1,4 @@
-package com.amanaggarwal1.myapplication;
+package com.amanaggarwal1.dothemath;
 
 import android.content.Context;
 
