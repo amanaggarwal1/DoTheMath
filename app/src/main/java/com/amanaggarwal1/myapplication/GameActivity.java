@@ -15,9 +15,9 @@ import java.util.Random;
 public class GameActivity extends AppCompatActivity {
 
     //Declaring Views
-    private TextView query, scoreText;
+    private TextView queryTV, scoreTV;
     private GridLayout choicesGrid;
-    private Button choice0Button, choice1Button, choice2Button, choice3Button;
+    private Button[] choiceGridButton;
 
     private int operandUpperBound = 50; //Upper bound of numbers to be added.
     private int operatorUpperBound = 2; // Here only 2 operators are used "+" and "-".
@@ -49,11 +49,10 @@ public class GameActivity extends AppCompatActivity {
 
     // Function to set the options to buttons on screen
     private void updateChoicesViews(ArrayList<Integer> choices){
-        choice0Button.setText(String.valueOf(choices.get(0)));
-        choice1Button.setText(String.valueOf(choices.get(1)));
-        choice2Button.setText(String.valueOf(choices.get(2)));
-        choice3Button.setText(String.valueOf(choices.get(3)));
-    }
+
+        for(int i = 0; i < choices.size(); i++)
+            choiceGridButton[i].setText(String.valueOf(choices.get(i)));
+       }
 
     // Function to generate choices for a given query
     private void updateChoices(ArrayList<Integer> choices, int correctAnswer){
@@ -85,7 +84,7 @@ public class GameActivity extends AppCompatActivity {
         Random random = new Random();
 
         numberOfQueries++;
-        String queryText = ""; // An empty string to store query
+        String query = ""; // An empty string to store query
 
         ArrayList<Integer> operands = new ArrayList<>(); // Array to store operands
         ArrayList<Character> operations = new ArrayList<>(); //Array to store operators
@@ -106,11 +105,11 @@ public class GameActivity extends AppCompatActivity {
 
         //Update the query string with values from 2 arrays
         for(int i = 0; i < operations.size(); i++)
-            queryText += String.valueOf(operands.get(i)) + " " + operations.get(i) + " ";
+            query += String.valueOf(operands.get(i)) + " " + operations.get(i) + " ";
 
         //Adding last operand to query string
-        queryText += String.valueOf( operands.get( operands.size() - 1 ) ) ;
-        query.setText(queryText); // Display query on screen
+        query += String.valueOf( operands.get( operands.size() - 1 ) ) ;
+        queryTV.setText(query); // Display query on screen
 
         // Call the function to calculate correct answer
         int correctAnswer = calculateCorrectAnswer(operands, operations);
@@ -118,12 +117,11 @@ public class GameActivity extends AppCompatActivity {
         updateChoices(choices, correctAnswer);
     }
 
+    // Function gets called when any of the choice button is tapped by user
     public void answerSelected(View view){
-
         verifyAnswer(locationOfCorrectAnswer ,Integer.parseInt(view.getTag().toString()));
-        scoreText.setText("Score : " + score + " / " + numberOfQueries);
+        scoreTV.setText("Score : " + score + " / " + numberOfQueries);
         updateQuery();
-        scoreText.setText("Score : " + score + " / " + numberOfQueries);
     }
 
     @Override
@@ -132,15 +130,19 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         //Linking Views
-        query = findViewById(R.id.queryTV);
-        scoreText = findViewById(R.id.scoreTV);
+        queryTV = findViewById(R.id.queryTV);
+        scoreTV = findViewById(R.id.scoreTV);
         choicesGrid = findViewById(R.id.choicesGridLayout);
-        choice0Button = findViewById(R.id.choice0Button);
-        choice1Button = findViewById(R.id.choice1Button);
-        choice2Button = findViewById(R.id.choice2Button);
-        choice3Button = findViewById(R.id.choice3Button);
+
+        choiceGridButton = new Button[choicesGrid.getRowCount() * choicesGrid.getColumnCount()];
+
+        choiceGridButton[0] = findViewById(R.id.choice0Button);
+        choiceGridButton[1] = findViewById(R.id.choice1Button);
+        choiceGridButton[2] = findViewById(R.id.choice2Button);
+        choiceGridButton[3] = findViewById(R.id.choice3Button);
 
         updateQuery();
-        scoreText.setText("Score : " + score + " / " + numberOfQueries);
+
+        scoreTV.setText("Score : Nil");
     }
 }
