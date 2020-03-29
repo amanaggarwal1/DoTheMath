@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.amanaggarwal1.dothemath.GameActivity"></activity>
-        <activity android:name="com.amanaggarwal1.dothemath.MainActivity">
+        <activity android:name=".DifficultySelectionActivity"></activity>
+        <activity android:name=".GameActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

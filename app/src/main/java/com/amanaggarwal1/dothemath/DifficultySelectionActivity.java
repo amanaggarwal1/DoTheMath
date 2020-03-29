@@ -6,12 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class DifficultySelectionActivity extends AppCompatActivity {
 
-    //Function called when any game mode is chosen
-    //It directs app to choose difficulty screen
-    public void chooseDifficulty(View view){
-        Intent intent = new Intent(this, DifficultySelectionActivity.class);
+    public void startGameButtonClicked(View view){
+        Intent intent = new Intent(this, GameActivity.class);
         finish();
         startActivity(intent);
     }
@@ -19,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_difficulty_selection);
+
     }
 }
