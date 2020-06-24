@@ -2,20 +2,19 @@ package com.amanaggarwal1.dothemath;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.content.SearchRecentSuggestionsProvider;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-
-import java.util.ArrayList;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class DifficultySelectionActivity extends AppCompatActivity {
 
-    ListView difficultyLV;
+    private TextView gameModeTV;
+    private TextView gameModeDescriptionTV;
+    private Button startGameButton;
+    private String chosenGameMode;
 
     public void startGameButtonClicked(View view){
         Intent intent = new Intent(this, GameActivity.class);
@@ -23,26 +22,35 @@ public class DifficultySelectionActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void setDifficultyModes(){
+    public void goToMainMenu(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        finish();
+        startActivity(intent);
+    }
 
+    private void setClassicMode(){
+        gameModeDescriptionTV.setText(R.string.ClassicModeDescription);
+    }
 
-        ArrayList<String> difficultyModes = new ArrayList<>();
-        difficultyModes.add("Beginner");
-        difficultyModes.add("Easy");
-        difficultyModes.add("Medium");
-        difficultyModes.add("Hard");
-        difficultyModes.add("Very Hard");
-        difficultyModes.add("Pro Grade");
+    private void setArcadeMode(){
+        gameModeDescriptionTV.setText(R.string.ArcadeModeDescription);
+    }
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, difficultyModes);
-        difficultyLV.setAdapter(arrayAdapter);
-        difficultyLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,long arg3) {
-                view.setSelected(true);
-            }
-        });
+    private void setCountdownMode(){
+        gameModeDescriptionTV.setText(R.string.CountdownModeDescription);
+    }
 
+    private void updateViews(){
+        chosenGameMode = getIntent().getStringExtra("GameMode");
+
+        gameModeTV.setText(chosenGameMode);
+
+        if(chosenGameMode.equals("CLASSIC"))
+            setClassicMode();
+        else if(chosenGameMode.equals("ARCADE"))
+            setArcadeMode();
+        else if(chosenGameMode.equals("COUNTDOWN"))
+            setCountdownMode();
     }
 
     @Override
@@ -50,6 +58,10 @@ public class DifficultySelectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_difficulty_selection);
 
-        difficultyLV = findViewById(R.id.difficultyLV);
+        gameModeTV = findViewById(R.id.gameModeTV);
+        gameModeDescriptionTV = findViewById(R.id.gameModeDescriptionTV);
+        startGameButton = findViewById(R.id.startGameButton);
+
+        updateViews();
     }
 }

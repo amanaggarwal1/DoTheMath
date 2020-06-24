@@ -1,6 +1,7 @@
 package com.amanaggarwal1.dothemath;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.gridlayout.widget.GridLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +11,9 @@ public class MainActivity extends AppCompatActivity {
 
     //Function called when any game mode is chosen
     //It directs app to choose difficulty screen
-    public void chooseDifficulty(View view){
+    public void chooseGameMode(View view){
         Intent intent = new Intent(this, DifficultySelectionActivity.class);
+        intent.putExtra("GameMode", view.getTag().toString());
         finish();
         startActivity(intent);
     }

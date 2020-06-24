@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Do The Math</string>
+    <string name="ClassicModeDescription">You will get some algebraic problems and you have to answer 10 problems as fast as you can</string>
+    <string name="ArcadeModeDescription">This is last man standing challenge, you will get 5 second for each question and game will keep running as you keep giving correct answers</string>
+    <string name="CountdownModeDescription">You will get 30 seconds to solve as many questions you can</string>
 </resources>

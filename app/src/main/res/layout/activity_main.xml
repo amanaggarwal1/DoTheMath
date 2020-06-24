@@ -14,14 +14,14 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/chooseGameModeGridLayout"
+        app:layout_constraintBottom_toTopOf="@+id/chooseGameModeGL"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/btn_star_big_on" />
 
     <androidx.gridlayout.widget.GridLayout
-        android:id="@+id/chooseGameModeGridLayout"
+        android:id="@+id/chooseGameModeGL"
         android:layout_width="0dp"
         android:layout_height="0dp"
 
@@ -41,39 +41,39 @@
             android:id="@+id/classicButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_rowWeight="1"
-            app:layout_columnWeight="1"
+            android:onClick="chooseGameMode"
             android:tag="CLASSIC"
             android:text="CLASSIC"
             android:textSize="20sp"
-            android:onClick="chooseDifficulty"
             app:layout_column="0"
-            app:layout_row="0" />
+            app:layout_columnWeight="1"
+            app:layout_row="0"
+            app:layout_rowWeight="1" />
 
         <Button
             android:id="@+id/arcadeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_rowWeight="1"
-            app:layout_columnWeight="1"
+            android:onClick="chooseGameMode"
             android:tag="ARCADE"
             android:text="ARCADE"
             android:textSize="20sp"
-            android:onClick="chooseDifficulty"
             app:layout_column="0"
-            app:layout_row="1" />
+            app:layout_columnWeight="1"
+            app:layout_row="1"
+            app:layout_rowWeight="1" />
 
         <Button
             android:id="@+id/countdownButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_rowWeight="1"
-            app:layout_columnWeight="1"
+            android:onClick="chooseGameMode"
             android:tag="COUNTDOWN"
             android:text="COUNTDOWN"
             android:textSize="20sp"
-            android:onClick="chooseDifficulty"
             app:layout_column="0"
-            app:layout_row="2" />
+            app:layout_columnWeight="1"
+            app:layout_row="2"
+            app:layout_rowWeight="1" />
     </androidx.gridlayout.widget.GridLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
