@@ -2,22 +2,22 @@ package com.amanaggarwal1.dothemath;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class DifficultySelectionActivity extends AppCompatActivity {
+public class GameModeSelectionActivity extends AppCompatActivity {
 
     private TextView gameModeTV;
     private TextView gameModeDescriptionTV;
     private Button startGameButton;
     private String chosenGameMode;
+    Intent intent;
 
     public void startGameButtonClicked(View view){
-        Intent intent = new Intent(this, GameActivity.class);
+
         finish();
         startActivity(intent);
     }
@@ -38,6 +38,7 @@ public class DifficultySelectionActivity extends AppCompatActivity {
 
     private void setCountdownMode(){
         gameModeDescriptionTV.setText(R.string.CountdownModeDescription);
+        intent = new Intent(this, CountdownGameActivity.class);
     }
 
     private void updateViews(){
