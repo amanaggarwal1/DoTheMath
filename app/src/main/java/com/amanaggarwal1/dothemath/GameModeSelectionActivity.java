@@ -17,8 +17,7 @@ public class GameModeSelectionActivity extends AppCompatActivity {
     Intent intent;
 
     public void startGameButtonClicked(View view){
-
-        //finish();
+        finish();
         startActivity(intent);
     }
 
@@ -57,7 +56,7 @@ public class GameModeSelectionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_difficulty_selection);
+        setContentView(R.layout.activity_game_mode_selection);
 
         gameModeTV = findViewById(R.id.gameModeTV);
         gameModeDescriptionTV = findViewById(R.id.gameModeDescriptionTV);

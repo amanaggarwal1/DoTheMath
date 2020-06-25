@@ -25,11 +25,28 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/popUpScoreTV"
+        android:id="@+id/popUpTimeTV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center"
+        android:text="Time : "
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/popUpScoreTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameStatusTV" />
+
+
+    <TextView
+        android:id="@+id/popUpScoreTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
         android:gravity="center"
@@ -39,7 +56,7 @@
         app:layout_constraintBottom_toTopOf="@+id/popUpAcuracyTV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gameStatusTV" />
+        app:layout_constraintTop_toBottomOf="@+id/popUpTimeTV" />
 
     <TextView
         android:id="@+id/popUpAcuracyTV"
@@ -64,6 +81,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:text="Continue"
+        android:fontFamily="sans-serif-condensed"
         android:onClick="continueGame"
         app:layout_constraintBottom_toTopOf="@+id/restartGameButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,6 +94,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif-condensed"
+        android:onClick="restartGame"
         android:text="Restart"
         app:layout_constraintBottom_toTopOf="@+id/goToMainMenuButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,8 +109,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:onClick="goToMainMenu"
-
         android:text="Main Menu"
+        android:fontFamily="sans-serif-condensed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -27,42 +27,61 @@ public class CountdownGameActivity extends AppCompatActivity {
     private Button pauseGame;
     SetUpQuery setUpQuery;
 
+    //Total time for 1 round of game
+    int totalGameTime = 30;
     private int operandUpperBound = 50; //Upper bound of numbers to be added.
     private int numberOfOperations = 1; //Number of operations to be performed in every query.
-    private int totalGameTime = 30; //Total time for 1 round of game
     private int bufferTime = 400; // Buffer time to reduce lag
+    private int secondsLeft;
+
+    private CountDownTimer countDownTimer;
 
     private int score = 0; // Number of queries answered correctly by user.
     private int numberOfQueries = 0; // Number of queries encountered by user.
 
+    private void setUpTime(int totalGameTime){
+        secondsLeft = totalGameTime;
+    }
+
     // Function gets called when any of the choice button is tapped by user
     public void answerSelected(View view){
-        score = setUpQuery.verifyAnswer(Integer.parseInt(view.getTag().toString()));
+        score += setUpQuery.verifyAnswer(Integer.parseInt(view.getTag().toString()));
         numberOfQueries++;
         scoreTV.setText("Score : " + score + " / " + numberOfQueries);
         setUpQuery.updateQuery();
     }
 
     public void gamePause(View view){
-        score = 0;
-        numberOfQueries = 0;
-        startGameCounter();
-        pauseGame.setAlpha(0.4f);
-        pauseGame.setEnabled(false);
-        scoreTV.setText("Score : Nil");
-        setUpQuery = new SetUpQuery(
-                gameLayout, queryTV, choicesGrid, choiceGridButton, operandUpperBound, numberOfOperations);
+        Intent intent = new Intent(this, PopUpActivity.class);
+        intent.putExtra("GameStatus", "GAME PAUSED");
+        intent.putExtra("Score", score);
+        intent.putExtra("NumberOfQueries", numberOfQueries);
+        intent.putExtra("TimeLeft", "Time Left : " + secondsLeft + " seconds");
+        countDownTimer.cancel();
+        startActivityForResult(intent, 1);
+    }
+
+    private void gameResume(){
         setUpQuery.updateQuery();
         startGameCounter();
+    }
 
+    private void resetGame(){
+        score = 0;
+        numberOfQueries = 0;
+        scoreTV.setText("Nil");
+        secondsLeft = totalGameTime;
+        gameResume();
     }
 
     public void startGameCounter(){
-        new CountDownTimer(totalGameTime * 1000 + bufferTime, 1000){
+        countDownTimer = new CountDownTimer(secondsLeft * 1000 + bufferTime, 1000){
 
             @Override
             public void onTick(long millisUntilFinished) {
-                timerTV.setText("Time Left : " + (millisUntilFinished)/1000);
+                secondsLeft = (int) millisUntilFinished / 1000 ;
+                timerTV.setText("Time Left : " + secondsLeft + " s");
+
             }
 
             @Override
@@ -70,11 +89,23 @@ public class CountdownGameActivity extends AppCompatActivity {
                 pauseGame.setAlpha(1);
                 pauseGame.setEnabled(true);
 
-                finish();
                 Intent intent = new Intent(CountdownGameActivity.this, PopUpActivity.class);
-                startActivity(intent);
+                intent.putExtra("GameStatus", "GAME OVER");
+                intent.putExtra("Score", score);
+                intent.putExtra("NumberOfQueries", numberOfQueries);
+                startActivityForResult(intent, 0);
             }
         }.start();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == 0)
+            resetGame();
+        else if(resultCode == 1)
+            gameResume();
     }
 
     @Override
@@ -97,6 +128,18 @@ public class CountdownGameActivity extends AppCompatActivity {
         choiceGridButton[2] = findViewById(R.id.choice2Button);
         choiceGridButton[3] = findViewById(R.id.choice3Button);
 
-        gamePause(queryTV);
+        setUpQuery = new SetUpQuery(
+                gameLayout, queryTV, choicesGrid, choiceGridButton, operandUpperBound, numberOfOperations);
+
+        setUpTime(totalGameTime);
+        gameResume();
+
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        gamePause(gameLayout);
+    }
+
 }

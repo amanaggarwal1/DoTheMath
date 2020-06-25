@@ -23,7 +23,6 @@ public class SetUpQuery {
     private int numberOfOperations; //Number of operations to be performed in every query.
 
     private int locationOfCorrectAnswer; // Integer to store location of correct answer which will be updated with every query
-    private int score = 0; // Number of queries answered correctly by user.
 
 
     //Constructor
@@ -123,20 +122,18 @@ public class SetUpQuery {
 
     // Function to check if the answer given by user matches the generated answer
     public int verifyAnswer(int chosen){
+        int result = 0;
         if(chosen == locationOfCorrectAnswer){
-            score++; ///Increment score
-
             // Set background color to green
             gameLayout.setBackgroundColor(Color.GREEN);
-
-            //Set background color back to white after 100 milliseconds
-
+            result = 1;
         }else{
             // Set background color to red
             gameLayout.setBackgroundColor(Color.RED);
 
-            //Set background color back to white after 100 milliseconds
         }
+
+        //Set background color back to white after 100 milliseconds
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -144,7 +141,7 @@ public class SetUpQuery {
             }
         },100);
 
-        return score;
+        return result;
     }
 
 }
