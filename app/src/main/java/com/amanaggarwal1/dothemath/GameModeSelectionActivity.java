@@ -33,6 +33,7 @@ public class GameModeSelectionActivity extends AppCompatActivity {
 
     private void setArcadeMode(){
         gameModeDescriptionTV.setText(R.string.ArcadeModeDescription);
+        intent = new Intent(this, ArcadeGameModeActivity.class);
     }
 
     private void setCountdownMode(){

@@ -51,10 +51,11 @@ public class CountdownGameActivity extends AppCompatActivity {
 
     public void gamePause(View view){
         Intent intent = new Intent(this, PopUpActivity.class);
+        intent.putExtra("GameMode", "COUNTDOWN");
         intent.putExtra("GameStatus", "GAME PAUSED");
         intent.putExtra("Score", score);
         intent.putExtra("NumberOfQueries", numberOfQueries);
-        intent.putExtra("TimeLeft", "Time Left : " + secondsLeft + " seconds");
+        intent.putExtra("Time", secondsLeft);
         countDownTimer.cancel();
         startActivityForResult(intent, 1);
     }
@@ -72,6 +73,17 @@ public class CountdownGameActivity extends AppCompatActivity {
         gameResume();
     }
 
+    private void gameOver(){
+
+        Intent intent = new Intent(CountdownGameActivity.this, PopUpActivity.class);
+        intent.putExtra("GameMode", "COUNTDOWN");
+        intent.putExtra("GameStatus", "GAME OVER");
+        intent.putExtra("Score", score);
+        intent.putExtra("NumberOfQueries", numberOfQueries);
+        startActivityForResult(intent, 0);
+
+    }
+
     public void startGameCounter(){
         countDownTimer = new CountDownTimer(secondsLeft * 1000 + bufferTime, 1000){
 
@@ -84,14 +96,7 @@ public class CountdownGameActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                pauseGame.setAlpha(1);
-                pauseGame.setEnabled(true);
-
-                Intent intent = new Intent(CountdownGameActivity.this, PopUpActivity.class);
-                intent.putExtra("GameStatus", "GAME OVER");
-                intent.putExtra("Score", score);
-                intent.putExtra("NumberOfQueries", numberOfQueries);
-                startActivityForResult(intent, 0);
+                gameOver();
             }
         }.start();
     }
@@ -140,28 +145,13 @@ public class CountdownGameActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d("LOGCAT", "inpause");
         countDownTimer.cancel();
     }
 
     @Override
     protected void onRestart() {
-        Log.d("LOGCAT", "onrestart");
         super.onRestart();
         gamePause(gameLayout);
-    }
-
-
-    @Override
-    protected void onStop() {
-        Log.d("LOGCAT", "onstop");
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        Log.d("LOGCAT" , "onDestroy");
-        super.onDestroy();
     }
 
 

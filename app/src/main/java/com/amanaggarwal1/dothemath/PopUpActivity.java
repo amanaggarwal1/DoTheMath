@@ -34,6 +34,25 @@ public class PopUpActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void updateViewsForCountdown(){
+        int timeLeft = getIntent().getIntExtra("Time", 0);
+        int score = getIntent().getIntExtra("Score", 0);
+        int numberOfQueries = getIntent().getIntExtra("NumberOfQueries", 0);
+
+        float accuracy = -1;
+        if(numberOfQueries > 0)
+            accuracy = (float) score * 100 / numberOfQueries;
+
+        timeLeftTV.setText("Time Left : " + timeLeft + " seconds");
+
+        scoreTV.setText("Score : " + score + " / " + numberOfQueries);
+
+        if(accuracy != -1)
+            accuracyTV.setText("Accuracy :" + String.format( "%.2f" , accuracy) + "%");
+        else
+            accuracyTV.setText("Accuracy : Nil");
+    }
+
     private void updateViews(){
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -44,13 +63,7 @@ public class PopUpActivity extends AppCompatActivity {
         getWindow().setLayout( width, height);
 
         String gameStatus = getIntent().getStringExtra("GameStatus");
-        String time = getIntent().getStringExtra("TimeLeft");
-        int score = getIntent().getIntExtra("Score", 0);
-        int numberOfQueries = getIntent().getIntExtra("NumberOfQueries", 0);
-
-        float accuracy = -1;
-        if(numberOfQueries > 0)
-            accuracy = (float) score * 100 / numberOfQueries;
+        String gameMode = getIntent().getStringExtra("GameMode");
 
         if(gameStatus.equals("GAME PAUSED")) {
             timeLeftTV.setVisibility(View.VISIBLE);
@@ -62,13 +75,41 @@ public class PopUpActivity extends AppCompatActivity {
         }
 
         gameStatusTV.setText(gameStatus);
-        timeLeftTV.setText(time);
-        scoreTV.setText("Score : " + score + " / " + numberOfQueries);
 
-        if(accuracy != -1)
-            accuracyTV.setText("Accuracy :" + String.format( "%.2f" , accuracy) + "%");
+
+        if(gameMode.equals("CLASSIC"))
+            updateViewsForClassic();
+        else if(gameMode.equals("ARCADE"))
+            updateViewsForArcade();
+        else if(gameMode.equals("COUNTDOWN"))
+            updateViewsForCountdown();
+
+
+
+    }
+
+    private void updateViewsForArcade() {
+        String gameStatus = getIntent().getStringExtra("GameStatus");
+        int time = getIntent().getIntExtra("Time", 0);
+        int score = getIntent().getIntExtra("Score", 0);
+        int numberOfQueries = getIntent().getIntExtra("NumberOfQueries", 0);
+
+        int avgTime = -1;
+        if(numberOfQueries > 0)
+            avgTime = time / numberOfQueries;
+
+        timeLeftTV.setText("Total Time : " + time);
+        scoreTV.setText("Score : " + score);
+
+        if(avgTime != -1)
+            accuracyTV.setText("Average time : " + avgTime + " seconds");
         else
-            accuracyTV.setText("Accuracy : Nil");
+            accuracyTV.setText("Average Time : Nil");
+
+    }
+
+    private void updateViewsForClassic() {
+
     }
 
     @Override
@@ -91,4 +132,6 @@ public class PopUpActivity extends AppCompatActivity {
         super.onPause();
         continueGame(gameStatusTV);
     }
+
+
 }
