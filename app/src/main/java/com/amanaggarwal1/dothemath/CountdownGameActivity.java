@@ -25,12 +25,10 @@ public class CountdownGameActivity extends AppCompatActivity {
     private GridLayout choicesGrid;
     private Button[] choiceGridButton;
     private Button pauseGame;
-    SetUpQuery setUpQuery;
+    private SetUpQuery setUpQuery;
 
     //Total time for 1 round of game
     int totalGameTime = 30;
-    private int operandUpperBound = 50; //Upper bound of numbers to be added.
-    private int numberOfOperations = 1; //Number of operations to be performed in every query.
     private int bufferTime = 400; // Buffer time to reduce lag
     private int secondsLeft;
 
@@ -128,6 +126,9 @@ public class CountdownGameActivity extends AppCompatActivity {
         choiceGridButton[2] = findViewById(R.id.choice2Button);
         choiceGridButton[3] = findViewById(R.id.choice3Button);
 
+        int operandUpperBound = 50; //Upper bound of numbers to be added.
+        int numberOfOperations = 1; //Number of operations to be performed in every query.
+
         setUpQuery = new SetUpQuery(
                 gameLayout, queryTV, choicesGrid, choiceGridButton, operandUpperBound, numberOfOperations);
 
@@ -139,7 +140,29 @@ public class CountdownGameActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        Log.d("LOGCAT", "inpause");
+        countDownTimer.cancel();
+    }
+
+    @Override
+    protected void onRestart() {
+        Log.d("LOGCAT", "onrestart");
+        super.onRestart();
         gamePause(gameLayout);
     }
+
+
+    @Override
+    protected void onStop() {
+        Log.d("LOGCAT", "onstop");
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d("LOGCAT" , "onDestroy");
+        super.onDestroy();
+    }
+
 
 }

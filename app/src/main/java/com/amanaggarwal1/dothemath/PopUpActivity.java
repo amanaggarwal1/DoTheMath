@@ -86,4 +86,9 @@ public class PopUpActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        continueGame(gameStatusTV);
+    }
 }
