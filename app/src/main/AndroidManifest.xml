@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GameModeSelectionActivity"></activity>
+        <activity
+            android:name=".PopUpActivity"
+            android:theme="@style/AppTheme.PopUp" />
+        <activity android:name=".GameModeSelectionActivity" />
         <activity android:name=".CountdownGameActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

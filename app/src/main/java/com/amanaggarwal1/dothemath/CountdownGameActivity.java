@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.gridlayout.widget.GridLayout;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -53,6 +54,7 @@ public class CountdownGameActivity extends AppCompatActivity {
                 gameLayout, queryTV, choicesGrid, choiceGridButton, operandUpperBound, numberOfOperations);
         setUpQuery.updateQuery();
         startGameCounter();
+
     }
 
     public void startGameCounter(){
@@ -67,6 +69,10 @@ public class CountdownGameActivity extends AppCompatActivity {
             public void onFinish() {
                 pauseGame.setAlpha(1);
                 pauseGame.setEnabled(true);
+
+                finish();
+                Intent intent = new Intent(CountdownGameActivity.this, PopUpActivity.class);
+                startActivity(intent);
             }
         }.start();
     }

@@ -18,7 +18,7 @@ public class GameModeSelectionActivity extends AppCompatActivity {
 
     public void startGameButtonClicked(View view){
 
-        finish();
+        //finish();
         startActivity(intent);
     }
 
