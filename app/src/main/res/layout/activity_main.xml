@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/pop_up_background"
     tools:context=".MainActivity">
 
     <ImageView
@@ -18,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        app:srcCompat="@drawable/main_activity_logo" />
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/chooseGameModeGL"
@@ -44,7 +45,11 @@
             android:onClick="chooseGameMode"
             android:tag="CLASSIC"
             android:text="CLASSIC"
+            android:layout_margin="8dp"
             android:textSize="20sp"
+            android:textColor="@color/colorAccent"
+            android:fontFamily="sans-serif-medium"
+            android:background="@color/colorPrimary"
             app:layout_column="0"
             app:layout_columnWeight="1"
             app:layout_row="0"
@@ -57,7 +62,11 @@
             android:onClick="chooseGameMode"
             android:tag="ARCADE"
             android:text="ARCADE"
+            android:layout_margin="8dp"
             android:textSize="20sp"
+            android:textColor="@color/colorAccent"
+            android:fontFamily="sans-serif-medium"
+            android:background="@color/colorPrimary"
             app:layout_column="0"
             app:layout_columnWeight="1"
             app:layout_row="1"
@@ -70,8 +79,12 @@
             android:onClick="chooseGameMode"
             android:tag="COUNTDOWN"
             android:text="COUNTDOWN"
+            android:layout_margin="8dp"
             android:textSize="20sp"
             app:layout_column="0"
+            android:textColor="@color/colorAccent"
+            android:fontFamily="sans-serif-medium"
+            android:background="@color/colorPrimary"
             app:layout_columnWeight="1"
             app:layout_row="2"
             app:layout_rowWeight="1" />
