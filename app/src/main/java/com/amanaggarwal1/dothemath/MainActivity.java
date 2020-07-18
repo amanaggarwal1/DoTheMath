@@ -13,7 +13,6 @@ public class MainActivity extends AppCompatActivity {
     public void chooseGameMode(View view){
         Intent intent = new Intent(this, GameModeSelectionActivity.class);
         intent.putExtra("GameMode", view.getTag().toString());
-        finish();
         startActivity(intent);
     }
 
@@ -22,4 +21,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        finish();
+//    }
 }
