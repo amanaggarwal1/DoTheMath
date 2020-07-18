@@ -58,8 +58,8 @@ public class PopUpActivity extends AppCompatActivity {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-        int width = (int) ( displayMetrics.widthPixels * 0.8 );
-        int height = (int) (displayMetrics.heightPixels * 0.7 );
+        int width = (int) ( displayMetrics.widthPixels * 0.9 );
+        int height = (int) (displayMetrics.heightPixels * 0.8 );
         getWindow().setLayout( width, height);
 
         String gameStatus = getIntent().getStringExtra("GameStatus");
